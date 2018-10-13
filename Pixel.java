@@ -49,28 +49,28 @@ public class Pixel{
     }
 
     public void setAlpha(int newAlpha){
-        int alpha = boundsCheck(newAlpha);
+        int alpha = rgbBoundsCheck(newAlpha);
         int rgb = (alpha << 24) + (getRed() << 16) 
                     + (getGreen() << 8) + getBlue();
         pic.setPixel(x, y, rgb);
     }
 
     public void setRed(int newRed){
-        int red = boundsCheck(newRed);
+        int red = rgbBoundsCheck(newRed);
         int rgb = (getAlpha() << 24) + (red << 16) 
                     + (getGreen() << 8) + getBlue();
         pic.setPixel(x, y, rgb);
     }
 
     public void setGreen(int newGreen){
-        int green = boundsCheck(newGreen);
+        int green = rgbBoundsCheck(newGreen);
         int rgb = (getAlpha() << 24) + (getRed() << 16) 
                     + (green << 8) + getBlue();
         pic.setPixel(x, y, rgb);
     }
 
     public void setBlue(int newBlue){
-        int blue = boundsCheck(newBlue);
+        int blue = rgbBoundsCheck(newBlue);
         int rgb = (getAlpha() << 24) + (getRed() << 16) 
                     + (getGreen() << 8) + blue;
         pic.setPixel(x, y, rgb);

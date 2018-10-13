@@ -10,6 +10,9 @@ import javafx.scene.input.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
 import java.util.*;
+
+import javax.imageio.ImageIO;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -17,83 +20,84 @@ import java.awt.Toolkit;
 
 import java.io.*;
 
-public class Gui extends Application
-{
+public class Gui extends Application {
 
     public Stage stage;
 
     public GridPane pane;
 
+    public String saveLocation = "./MyScreenshots";
 
     @Override
-        public void start(Stage primaryStage)
-        {
-            pane = new GridPane();
+    public void start(Stage primaryStage) {
+        pane = new GridPane();
 
+        // Adds the pane to the scene, which gets added to the stage
+        this.stage = primaryStage;
+        Scene scene = new Scene(pane);
+        this.stage.setTitle("Gui");
+        this.stage.setScene(scene);
+        this.stage.show();
 
+        scene.setOnKeyPressed(new KeyHandler());
 
-            //Adds the pane to the scene, which gets added to the stage
-            this.stage = primaryStage;
-            Scene scene = new Scene(pane);
-            this.stage.setTitle("Gui");
-            this.stage.setScene(scene);
-            this.stage.show();
-            scene.setOnKeyPressed(new KeyHandler());
-
-           
-
-        }
     }
 
 
+/**
+ * EventHandler that listens to keys pressed. Used by scene.setOnKeyPressed
+ */
+class KeyHandler implements EventHandler<KeyEvent> {
 
     /**
-     * EventHandler that listens to keys pressed. Used by scene.setOnKeyPressed
+     * Moves the board in the direction according to the key pressed.
+     *
+     * @param e The KeyEvent that indicates a keystroke occured
      */
-    class KeyHandler implements EventHandler<KeyEvent>{
+    @Override
+    public void handle(KeyEvent e) {
 
-        /**
-         * Moves the board in the direction according to the key pressed.
-         *
-         * @param e The KeyEvent that indicates a keystroke occured
-         */
-        @Override
-            public void handle(KeyEvent e){
+        if (e.getCode().equals(KeyCode.PRINTSCREEN)) {
+            System.out.println("PRINTSCREEN pressed! Taking screenshot here.");
+            stage.setIconified(true);
+
+            try {
+                Robot capture = new Robot();
+                BufferedImage curr;
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                int width = (int) screenSize.getWidth();
+                int height = (int) screenSize.getHeight();
+                java.awt.Rectangle screenRect = new java.awt.Rectangle(width, height);
+                curr = capture.createScreenCapture(screenRect);
+                int rgb;
+                Pixel pix;
+                java.util.Date date = new java.util.Date();
+                File imgFile = new File(saveLocation+ "/ColorCorrector/" + date+".jpg");
+                ImageIO.write(curr, "jpg", imgFile);
                 
-
-                if(e.getCode().equals(KeyCode.PRINTSCREEN)) {
-                    System.out.println("PRINTSCREEN pressed! Taking screenshot here.");
-
-                    stage.setIconified(true);
-                    Robot capture = new Robot();
-                    BufferedImage curr;
-                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-                    int width = (int)screenSize.getWidth();
-                    int height = (int)screenSize.getHeight();
-                    System.out.println(width);
-                    System.out.println(height);
-                    Rectangle screenRect = new Rectangle(width, height);
-
-                    curr = capture.createScreenCapture(screenRect);
-                    for(int j = 0; j < width; j++) {
-                        for(int k = 0; k < height; k++) {
-                            curr.getRGB(j, k);
-                        }
+                for (int j = 0; j < width; j++) {
+                    for (int k = 0; k < height; k++) {
+                        rgb = curr.getRGB(j, k);
+                        
                     }
-
-                } else if(e.getCode().equals(KeyCode.Q)){
-                    System.out.println("Q pressed! closing.");
-                    System.exit(0);
                 }
 
+            } catch (Exception exc) {
+                System.out.println("Exception caught ruh roh");
+                System.out.println(exc);
+                System.exit(-1);
             }
+            stage.setIconified(false);
 
+            
 
+        } else if (e.getCode().equals(KeyCode.Q)) {
+            System.out.println("Q pressed! closing.");
+            System.exit(0);
+        }
 
+    }
 
+}
 
-
-    
-
-   
 }
