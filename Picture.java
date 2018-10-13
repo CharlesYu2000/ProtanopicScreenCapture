@@ -7,35 +7,23 @@ import java.awt.geom.*;
 
 public class Picture {
 
-    // Fields
-
-    /**
-     * the file name associated with the picture
-     */
     private String fileName;
 
-    /**
-     * the title of the picture
-     */
+
     protected String title;
 
-    /**
-     * buffered image to hold pixels for the picture
-     */
+
     private BufferedImage bufferedImage;
 
-    /**
-     * frame used to display the picture
-     */
+
     private PictureFrame pictureFrame;
 
+
     /**
-     * extension for this file (jpg or bmp)
+     * File extension for the pic (jpg)
      */
     private String extension;
 
-
-    // Constructors
 
     public Picture(String fileName) {
         load(fileName);
@@ -49,34 +37,17 @@ public class Picture {
         setAllPixelsToAColor(Color.white);
     }
 
-    /**
-     * Method to return the pixel value as an int for the given x and y location
-     * 
-     * @param x the x coordinate of the pixel
-     * @param y the y coordinate of the pixel
-     * @return the pixel value as an integer (alpha, red, green, blue)
-     */
+
     public int getPixel(int x, int y) {
         return bufferedImage.getRGB(x, y);
     }
 
-    /**
-     * Method to set the value of a pixel in the picture from an int
-     * 
-     * @param x   the x coordinate of the pixel
-     * @param y   the y coordinate of the pixel
-     * @param rgb the new rgb value of the pixel (alpha, red, green, blue)
-     */
+
     public void setPixel(int x, int y, int rgb) {
         bufferedImage.setRGB(x, y, rgb);
     }
 
-    /**
-     * Method to write the contents of the picture to a file with 
-     * the passed name without throwing errors
-     * @param fileName the name of the file to write the picture to
-     * @return true if success else false
-     */
+
     public boolean load(String fileName)
     {
         try {
@@ -84,7 +55,7 @@ public class Picture {
             return true;
 
         } catch (Exception ex) {
-            System.out.println("There was an error trying to open " + fileName);
+            System.out.println("Error when trying to open " + fileName);
             bufferedImage = new BufferedImage(600,200,
                     BufferedImage.TYPE_INT_RGB);
             addMessage("Couldn't load " + fileName,5,100);
