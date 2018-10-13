@@ -11,6 +11,8 @@ public class Test {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         int width = (int)screenSize.getWidth();
         int height = (int)screenSize.getHeight();
+        //System.out.println(width);
+        //System.out.println(height);
         Rectangle screenRect = new Rectangle(width, height);
 
         for(int i = 0; i < 24; i++) {
