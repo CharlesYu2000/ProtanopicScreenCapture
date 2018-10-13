@@ -16,9 +16,6 @@ public class Picture {
     private BufferedImage bufferedImage;
 
 
-    private PictureFrame pictureFrame;
-
-
     /**
      * File extension for the pic (jpg)
      */
@@ -106,7 +103,4 @@ public class Picture {
 
     }
 
-    public Pixel grabPixel(int x, int y) {
-        Pixel pixel;
-    }
 }
