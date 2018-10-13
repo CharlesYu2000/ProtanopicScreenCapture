@@ -15,6 +15,7 @@ public class Picture {
 
     private BufferedImage bufferedImage;
 
+    private Frame frame;
 
     /**
      * File extension for the pic (jpg)
@@ -101,6 +102,32 @@ public class Picture {
         // draw the message
         graphics2d.drawString(message,xPos,yPos);
 
+    }
+
+
+    public void redraw(){
+        if (frame != null){
+            frame.redraw();
+        } else {
+            frame = new Frame(this);
+        }
+
+    }
+
+    public void show(){
+        if (frame != null){
+            frame.show();
+        } else {
+            frame = new Frame(this);
+        }
+    }
+
+    public Image getImage(){
+        return bufferedImage;
+    }
+
+    public String getTitle(){
+        return title;
     }
 
 }
