@@ -20,9 +20,9 @@ import java.io.*;
 public class Gui extends Application
 {
 
-    private Stage stage;
+    public Stage stage;
 
-    private GridPane pane;
+    public GridPane pane;
 
 
     @Override
