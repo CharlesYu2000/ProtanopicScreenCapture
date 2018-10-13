@@ -77,7 +77,7 @@ public class Pixel{
 	}
 
 	public Color getColor(){
-		return newColor(getRed(), getGreen(), getBlue());
+		return new Color(getRed(), getGreen(), getBlue());
 	}
 
 	public void setColor(Color color){

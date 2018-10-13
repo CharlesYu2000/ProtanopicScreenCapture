@@ -8,24 +8,26 @@ public class Frame {
 
     JLabel label = new JLabel(imageIcon);
 
+    JSlider slider = new JSlider();
+
     private Picture picture;
 
-    public Picture(){
-        // only do this if there is a picture
-    if (picture != null)
-    {
-      // set the image for the image icon from the picture
+    public Frame() {
+      frame.getContentPane().add(label);
+      frame.pack();
+      frame.setVisible(true);
+    }
+
+    public Frame(Picture pic) {
+      this.picture = pic;
+      if(pic == null){
+        throw new NullPointerException();
+      }
       imageIcon.setImage(picture.getImage());
-      
-      // set the title of the frame to the title of the picture
       frame.setTitle(picture.getTitle());
-            // add the label to the frame
-    frame.getContentPane().add(label);
-    
-    // pack the frame (set the size to as big as it needs to be)
-    frame.pack();
-    
-    // make the frame visible
-    frame.setVisible(true);
+
+      frame.getContentPane().add(label);
+      frame.pack();
+      frame.setVisible(true);
     }
 }
