@@ -17,7 +17,7 @@ public class Picture {
     /**
      * the title of the picture
      */
-    private String title;
+    protected String title;
 
     /**
      * buffered image to hold pixels for the picture
