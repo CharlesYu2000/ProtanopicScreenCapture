@@ -10,6 +10,10 @@ import javafx.scene.input.*;
 import javafx.scene.text.*;
 import javafx.geometry.*;
 import java.util.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.awt.Toolkit;
 
 import java.io.*;
 
@@ -31,7 +35,7 @@ public class Gui extends Application
             //Adds the pane to the scene, which gets added to the stage
             this.stage = primaryStage;
             Scene scene = new Scene(pane);
-            this.stage.setTitle("Gui2048");
+            this.stage.setTitle("Gui");
             this.stage.setScene(scene);
             this.stage.show();
             scene.setOnKeyPressed(new KeyHandler());
@@ -55,14 +59,31 @@ public class Gui extends Application
          */
         @Override
             public void handle(KeyEvent e){
-                //Shows the lose pane if the game is over
                 
 
-                //Checks if the key pressed is an arrow key or s
-                if(e.getCode().equals(KeyCode.A)) {
-                    System.out.println("A pressed! Taking screenshot here.");
-                } else if(e.getCode().equals(KeyCode.B)){
-                    System.out.println("B pressed! closing.");
+                if(e.getCode().equals(KeyCode.PRINTSCREEN)) {
+                    System.out.println("PRINTSCREEN pressed! Taking screenshot here.");
+
+                    stage.setIconified(true);
+                    Robot capture = new Robot();
+                    BufferedImage curr;
+                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    int width = (int)screenSize.getWidth();
+                    int height = (int)screenSize.getHeight();
+                    System.out.println(width);
+                    System.out.println(height);
+                    Rectangle screenRect = new Rectangle(width, height);
+
+                    curr = capture.createScreenCapture(screenRect);
+                    for(int j = 0; j < width; j++) {
+                        for(int k = 0; k < height; k++) {
+                            curr.getRGB(j, k);
+                        }
+                    }
+
+                } else if(e.getCode().equals(KeyCode.Q)){
+                    System.out.println("Q pressed! closing.");
+                    System.exit(0);
                 }
 
             }
