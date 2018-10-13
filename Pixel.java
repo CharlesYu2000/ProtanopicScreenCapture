@@ -2,11 +2,11 @@ import java.awt.Color;
 
 public class Pixel{
 
-	public Picture pic;
+	protected Picture pic;
 
-	public int x;
+	private int x;
 
-	public int y;
+	private int y;
 
 	public Pixel(Picture pic, int x, int y){
 		this.pic = pic;
@@ -38,7 +38,7 @@ public class Pixel{
 		return (pic.getPixel(x, y) & 0xff);
 	}
 
-	private int boundsCheck(int value){
+	public static int rgbBoundsCheck(int value){
 		if(value<0){
 			value = 0;
 		}else if(value>255){
