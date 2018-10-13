@@ -90,6 +90,8 @@ public class Pixel{
 	}
 
 	public String toString(){
-		return "Pixel at " + pic.
+		return "Pixel at " + pic.title + "'s (" + x + ", " + y + "); " + 
+				"ARGB is (" + getAlpha() + ", " + getRed() + ", " +
+				getGreen() + ", " + getBlue() + ").";
 	}
 }
