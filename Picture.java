@@ -41,13 +41,6 @@ public class Picture {
         load(fileName);
     }
 
-    public Picture(int width, int height) {
-        bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
-        title = "None";
-        fileName = "None";
-        extension = "jpg";
-        setAllPixelsToAColor(Color.white);
-    }
 
     /**
      * Method to return the pixel value as an int for the given x and y location
@@ -142,11 +135,7 @@ public class Picture {
 
     }
 
-    public void setAllPixelsToAColor(Color color) {
-        for(int x = 0; x < this.getWidth(); x++) {
-            for(int y = 0; y < this.getHeight(); y++) {
-                getPixel(x,y).setColor(color);
-            }
-        }
+    public Pixel grabPixel(int x, int y) {
+        Pixel pixel;
     }
 }
