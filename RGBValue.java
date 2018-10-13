@@ -22,14 +22,14 @@ public class RGBValue {
         //System.out.println(height);
         Rectangle screenRect = new Rectangle(width, height);
 
-        for(int i = 0; i < 24; i++) {
-            curr = capture.createScreenCapture(screenRect);
-            for(int j = 0; j < width; j++) {
-                for(int k = 0; k < height; k++) {
-                    curr.getRGB(j, k);
-                }
+        //for(int i = 0; i < 24; i++) {
+        curr = capture.createScreenCapture(screenRect);
+        for(int j = 0; j < width; j++) {
+            for(int k = 0; k < height; k++) {
+                curr.getRGB(j, k);
             }
         }
+        //}
 
     }
 
