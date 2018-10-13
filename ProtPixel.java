@@ -22,6 +22,7 @@ public class ProtPixel extends Pixel{
     /**
      * For RGB to LMS conversion. column matrix LMS = toLMS X RGB column matrix
      *                                  3x1            3x3      3x1
+     * From http://vision.psychol.cam.ac.uk/jdmollon/papers/colourmaps.pdf
      * Don't need L for this
     public static final double[][] toLMS = new double[][]{
         {17.8824, 43.5161, 4.1193},
@@ -62,13 +63,26 @@ public class ProtPixel extends Pixel{
     }
 
     public ProtPixel(Pixel origPixel){
-        origR = origPixel.getRed();
-        origG = origPixel.getGreen();
-        origB = origPixel.getBlue();
+        //downscale these a bit so that changed vals still within bounds for better accuracy
+
+        //this downscaling for protonopes
+        origR = 0.992052*origPixel.getRed()+0.003974;
+        origG = 0.992052*origPixel.getGreen()+0.003974;
+        origB = 0.992052*origPixel.getBlue()+0.003974;
+
+        /** this downscaling for deuteranopes
+        origR = 0.957237*origPixel.getRed()+0.0213814;
+        origG = 0.957237*origPixel.getGreen()+0.0213814;
+        origB = 0.957237*origPixel.getBlue()+0.0213814;
+        */
 
         rgbToLMS();
         lmsToLMSProt();
         lmsProtToRGBProt();
+
+        origR = origPixel.getRed();
+        origG = origPixel.getGreen();
+        origB = origPixel.getBlue();
     }
 
     private void rgbToLMS(){
