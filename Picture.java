@@ -34,6 +34,14 @@ public class Picture {
      */
     private String extension;
 
+
+    // Constructors
+    
+    public Picture(String fileName) {
+        
+    }
+
+
     /**
      * Method to return the pixel value as an int for the given x and y location
      * 
