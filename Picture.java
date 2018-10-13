@@ -76,7 +76,9 @@ public class Picture {
 
         if (!file.canRead()) 
         {
+        // try adding the media path 
             // try adding the media path 
+        // try adding the media path 
             file = new File(FileChooser.getMediaPath(this.fileName));
             if (!file.canRead())
             {
