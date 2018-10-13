@@ -8,8 +8,6 @@ public class Frame {
 
     JLabel label = new JLabel(imageIcon);
 
-    JSlider slider = new JSlider();
-
     private Picture picture;
 
     public Frame() {
