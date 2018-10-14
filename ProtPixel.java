@@ -104,11 +104,11 @@ public class ProtPixel extends Pixel{
     
 
     private void lmsProtToRGBProt(){
-        protR = Pixel.rgbBoundsCheck((int)(protLMST[0]*toRGBProt[0][0] + 
+        protR = ((int)(protLMST[0]*toRGBProt[0][0] + 
             protLMST[1]*toRGBProt[0][1] + protLMST[2]*toRGBProt[0][2]));
-        protG = Pixel.rgbBoundsCheck((int)(protLMST[0]*toRGBProt[1][0] + 
+        protG = ((int)(protLMST[0]*toRGBProt[1][0] + 
             protLMST[1]*toRGBProt[1][1] + protLMST[2]*toRGBProt[1][2]));
-        protB = Pixel.rgbBoundsCheck((int)(protLMST[0]*toRGBProt[2][0] + 
+        protB = ((int)(protLMST[0]*toRGBProt[2][0] + 
             protLMST[1]*toRGBProt[2][1] + protLMST[2]*toRGBProt[2][2]));
     }
 
