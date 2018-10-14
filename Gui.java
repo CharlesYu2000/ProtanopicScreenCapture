@@ -85,7 +85,7 @@ class KeyHandler implements EventHandler<KeyEvent> {
                 File imgFile = new File(fileSaveLoc);
 
 
-                while(System.currentTimeMillis() - startTime < 200){}
+                while(System.currentTimeMillis() - startTime < 350){}
 
 
                 curr = capture.createScreenCapture(screenRect);
@@ -105,10 +105,7 @@ class KeyHandler implements EventHandler<KeyEvent> {
                     }
                 }
 
-
-
-                imgFile = new File(fileSaveLoc);
-                ImageIO.write(curr, "png", imgFile);
+                pic.reSavePic();
                 javafx.scene.image.Image newImage =  new javafx.scene.image.Image(fileSaveLoc);
                 ImageView updatedView = new ImageView(newImage);
                 updatedView.setFitWidth(screenSize.getWidth());
@@ -118,8 +115,8 @@ class KeyHandler implements EventHandler<KeyEvent> {
                 pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
                
             } catch (Exception exc) {
-                System.out.println("Exception caught ruh roh");
-                System.out.println(exc);
+                System.err.println("Exception caught ruh roh");
+                System.err.println(exc);
                 System.exit(-1);
             }
             stage.setIconified(false);

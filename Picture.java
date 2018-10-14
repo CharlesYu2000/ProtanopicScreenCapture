@@ -20,13 +20,12 @@ public class Picture {
     /**
      * File extension for the pic (jpg)
      */
-    private String extension;
+    private String extension = "png";
 
 
     public Picture(String fileName) {
         load(fileName);
     }
-
 
 
     public int getPixel(int x, int y) {
@@ -36,6 +35,17 @@ public class Picture {
 
     public void setPixel(int x, int y, int rgb) {
         bufferedImage.setRGB(x, y, rgb);
+    }
+
+    public void reSavePic(){
+        try{
+            File imgFile = new File(fileName);
+            ImageIO.write(bufferedImage, extension, imgFile);
+        }catch(Exception exc){
+            System.err.println("big sp00k in Picture.java");
+            System.err.println(exc);
+            System.exit(-1);
+        }
     }
 
 
@@ -104,7 +114,7 @@ public class Picture {
         }
     }
 
-    public Image getImage(){
+    public BufferedImage getImage(){
         return bufferedImage;
     }
 
