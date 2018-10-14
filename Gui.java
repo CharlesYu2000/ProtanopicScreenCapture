@@ -17,19 +17,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
-import java.util.*;
 import javafx.application.*;
 import javafx.event.*;
-import javafx.geometry.*;
 import javafx.scene.*;
-import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.*;
-import javafx.scene.paint.*;
 import javafx.scene.text.*;
 import javafx.stage.*;
 import javax.imageio.*;
