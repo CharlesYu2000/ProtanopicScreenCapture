@@ -99,10 +99,8 @@ class KeyHandler implements EventHandler<KeyEvent> {
                     for (int k = 0; k < 2/*height*/; k++) {
                         pix = new Pixel(pic, j, k);
 
-            System.out.println(pix);
                         newPix = new ProtPixel(pix);
                         newPix.setColor(newPix.getColor());
-            System.out.println(newPix);
                         
                     }
                 }
