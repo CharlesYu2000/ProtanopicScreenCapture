@@ -246,15 +246,16 @@ public class Gui extends Application {
                     pane.getChildren().remove(updatedView);
                     if(screenshotVis){
                         listInd++;
+                        if(listInd==listOfSCs.size()){
+                            listInd = 0;
+                        }
                         newImage = new javafx.scene.image.Image(listOfSCs.get
                             (listInd));
                         updatedView = new ImageView(newImage);
                         pane.add(updatedView, 0, 0);
                         pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
                         stage.sizeToScene();
-                        if(listInd==listOfSCs.size()){
-                            listInd = 0;
-                        }
+
                     }
 
                 }
@@ -264,15 +265,16 @@ public class Gui extends Application {
                     pane.getChildren().remove(updatedView);
                     if(screenshotVis){
                         listInd--;
+                        if(listInd==-1){
+                            listInd = listOfSCs.size()-1;
+                        }
                         newImage = new javafx.scene.image.Image(listOfSCs.get
                             (listInd));
                         updatedView = new ImageView(newImage);
                         pane.add(updatedView, 0, 0);
                         pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
                         stage.sizeToScene();
-                        if(listInd==-1){
-                            listInd = listOfSCs.size()-1;
-                        }
+
                     }
 
                 }
