@@ -63,8 +63,8 @@ public class Gui extends Application {
         label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit"+
             "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
             + "mode."+"\n Press \"N\" for non-colorblind mode."
-            + " \n"
-            + " \n"
+            + " \n After taking a screenshot, you can press 'space'"
+            + " \n  to come back to this screen/go back to the picture."
             + " \n"
             + " \n"
             + " \n Screenshots are saved to \"MyScreenshots\" in"
