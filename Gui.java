@@ -73,6 +73,10 @@ class KeyHandler implements EventHandler<KeyEvent> {
                 Pixel pix;
                 String date = java.time.LocalDate.now().toString();
                 String time = java.time.LocalTime.now().toString();
+                File myScs = new File("MyScreenshots");
+                if(!(myScs.exists())){
+                    myScs.mkdir();
+                }
                 String fileSaveLoc = saveLocation + date + time.substring(0, 8).replace(':','_')+".jpg";
                 File imgFile = new File(fileSaveLoc);
                 ImageIO.write(curr, "jpg", imgFile);
