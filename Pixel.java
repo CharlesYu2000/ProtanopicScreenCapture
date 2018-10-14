@@ -1,4 +1,5 @@
-/* ColorCorrector: Protonopic screenshot taker.
+/* ProtanopicScreenCapture: Protanopic screenshot taker for people with
+ * protanomaly.
  * Copyright (C) 2018-2018 Charles Yu, Brandon Phan, Andrew Tang.  All Rights
  * Received.
  * https://github.com/CharlesYu2000/ColorCorrector
