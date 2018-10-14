@@ -46,19 +46,22 @@ public class Gui extends Application {
 
     public Text help;
 
+    public javafx.scene.control.Label label;
+
     public String saveLocation = "./MyScreenshots/";
 
     @Override
     public void start(Stage primaryStage) {
         pane = new GridPane();
         pane.setMinSize(400, 400);
-        help = new Text("Press \"F6\" to take a screenshot. Press \"Q\" to quit");
-        pane.add(help, 1, 1);
+        label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit");
+        label.setStyle( "-fx-font: 24 helvetica;");
+        pane.add(label, 1, 1);
 
         // Adds the pane to the scene, which gets added to the stage
         this.stage = primaryStage;
         Scene scene = new Scene(pane);
-        this.stage.setTitle("Color Corrector");
+        this.stage.setTitle("RG Color Blind Screenshot");
         this.stage.setScene(scene);
         this.stage.show();
 
