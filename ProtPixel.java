@@ -2,7 +2,7 @@
  * protanomaly.
  * Copyright (C) 2018-2018 Charles Yu, Brandon Phan, Andrew Tang.  All Rights
  * Received.
- * https://github.com/CharlesYu2000/ColorCorrector
+ * https://github.com/CharlesYu2000/ProtanopicScreenCapture
  *
  * ColorCorrector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
@@ -28,6 +28,14 @@ import java.lang.Math;
  * @author Charles Yu, charlesyu@ucsd.edu
  */
 public class ProtPixel extends Pixel{
+
+
+    //CHANGE THIS TO "private static boolean protanopia = false;" without the
+    // quotes if you want this for deuteranopia
+    private static boolean protanopia = true;  
+
+
+
     private double origR; //the original red value of the pixel
     private double origG; //the original green value of the pixel
     private double origB; //the original blue value of the pixel
@@ -96,28 +104,34 @@ public class ProtPixel extends Pixel{
     public ProtPixel(Pixel origPixel){
         super(origPixel.pic, origPixel.x, origPixel.y); //cus polymorphism X)
         
-        origColor = new Color(origPixel.getRed(), origPixel.getGreen(), origPixel.getBlue());
+        origColor = new 
+            Color(origPixel.getRed(), origPixel.getGreen(), origPixel.getBlue());
 
-        //downscale these a bit so that changed vals still within bounds for better accuracy
+        //downscale these a bit so that changed values 
+        //still within bounds for better accuracy
         origR = Math.pow((origPixel.getRed()/255.0),2.2);
         origG = Math.pow((origPixel.getGreen()/255.0),2.2);
         origB = Math.pow((origPixel.getBlue()/255.0),2.2);
 
-        //this downscaling for protonopes
-        origR = (0.992052*origR+0.003974);
-        origG = (0.992052*origG+0.003974);
-        origB = (0.992052*origB+0.003974);
+        if(protanopia){
+            //this downscaling for protonopes
+            origR = (0.992052*origR+0.003974);
+            origG = (0.992052*origG+0.003974);
+            origB = (0.992052*origB+0.003974);           
+        }else{
+            //this downscaling for deuteranopes
+            origR = 0.957237*origPixel.getRed()+0.0213814;
+            origG = 0.957237*origPixel.getGreen()+0.0213814;
+            origB = 0.957237*origPixel.getBlue()+0.0213814;            
+        }
 
-        /** this downscaling for deuteranopes
-        origR = 0.957237*origPixel.getRed()+0.0213814;
-        origG = 0.957237*origPixel.getGreen()+0.0213814;
-        origB = 0.957237*origPixel.getBlue()+0.0213814;
-        */
-
+        //does stuff HAHA
         rgbToLMS();
         lmsToLMSProt();
         lmsProtToRGBProt();
 
+        //reverts these back to the actual original values IDK why I made it
+        //like this but I did, sorry :\
         origR = origPixel.getRed();
         origG = origPixel.getGreen();
         origB = origPixel.getBlue();

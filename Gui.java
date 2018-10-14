@@ -2,7 +2,7 @@
  * protanomaly.
  * Copyright (C) 2018-2018 Charles Yu, Brandon Phan, Andrew Tang.  All Rights
  * Received.
- * https://github.com/CharlesYu2000/ColorCorrector
+ * https://github.com/CharlesYu2000/ProtanopicScreenCapture
  *
  * ColorCorrector is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
