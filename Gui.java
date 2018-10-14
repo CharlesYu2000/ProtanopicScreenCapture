@@ -21,6 +21,7 @@
 import java.awt.*;
 import java.awt.image.*;
 import java.io.*;
+import java.util.ArrayList;
 import javafx.application.*;
 import javafx.event.*;
 import javafx.scene.*;
@@ -53,6 +54,10 @@ public class Gui extends Application {
     private boolean screenshotTaken = false;
 
     private boolean screenshotVis = true;
+
+    private ArrayList<String> listOfSCs = new ArrayList<String>(0);
+
+    private int listInd = 0;
 
     @Override
     public void start(Stage primaryStage) {
@@ -91,6 +96,8 @@ public class Gui extends Application {
         Dimension screenSize;
 
         ImageView updatedView;
+
+        javafx.scene.image.Image newImage;
 
         /**
          * Takes a screenshot if "F6" is pressed. Exits the program if "Q" is pressed.
@@ -167,9 +174,12 @@ public class Gui extends Application {
                     if(screenshotTaken) {
                         pane.getChildren().remove(updatedView);
                     }
+
                     screenshotTaken = true;
                     screenshotVis = true;
-                    javafx.scene.image.Image newImage = new javafx.scene.image.Image(saveLocation);
+                    listOfSCs.add(new String(saveLocation));
+                    listInd = listOfSCs.size()-1;
+                    newImage = new javafx.scene.image.Image(saveLocation);
                     updatedView = new ImageView(newImage);
                     updatedView.setFitWidth(screenSize.getWidth());
                     updatedView.setFitHeight(screenSize.getHeight());
@@ -228,6 +238,42 @@ public class Gui extends Application {
                         stage.sizeToScene();
                     }
                     screenshotVis = !screenshotVis;
+
+                }
+            } else if(e.getCode().equals(KeyCode.UP)){
+
+                if(screenshotTaken){
+                    pane.getChildren().remove(updatedView);
+                    if(screenshotVis){
+                        newImage = new javafx.scene.image.Image(listOfSCs.get
+                            (listInd));
+                        updatedView = new ImageView(newImage);
+                        pane.add(updatedView, 0, 0);
+                        pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
+                        stage.sizeToScene();
+                        listInd++;
+                        if(listInd==listOfSCs.size()){
+                            listInd = 0;
+                        }
+                    }
+
+                }
+            } else if(e.getCode().equals(KeyCode.DOWN)){
+
+                if(screenshotTaken){
+                    pane.getChildren().remove(updatedView);
+                    if(screenshotVis){
+                        newImage = new javafx.scene.image.Image(listOfSCs.get
+                            (listInd));
+                        updatedView = new ImageView(newImage);
+                        pane.add(updatedView, 0, 0);
+                        pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
+                        stage.sizeToScene();
+                        listInd--;
+                        if(listInd==-1){
+                            listInd = listOfSCs.size()-1;
+                        }
+                    }
 
                 }
             }
