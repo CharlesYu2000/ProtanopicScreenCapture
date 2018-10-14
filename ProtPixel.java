@@ -1,12 +1,19 @@
 import java.awt.Color;
+import java.lang.Math;
 /**
  * RGB to LMS, LMS to LMS_prot, LMS_prot to RGB_prot
  */
 
+
+
+
+
 public class ProtPixel extends Pixel{
-    private int origR;
-    private int origG;
-    private int origB;
+    private double origR;
+    private double origG;
+    private double origB;
+
+    private Color origColor;
 
     //LMS transpose
     private double[] origLMST = new double[2];
@@ -14,9 +21,9 @@ public class ProtPixel extends Pixel{
     //LMS_prot transpose
     private double[] protLMST = new double[3];
 
-    private int protR;
-    private int protG;
-    private int protB;
+    private double protR;
+    private double protG;
+    private double protB;
 
 
     /**
@@ -66,10 +73,16 @@ public class ProtPixel extends Pixel{
         super(origPixel.pic, origPixel.x, origPixel.y);
         //downscale these a bit so that changed vals still within bounds for better accuracy
 
+        origColor = new Color(origPixel.getRed(), origPixel.getGreen(), origPixel.getBlue());
+
+        origR = Math.pow((origPixel.getRed()/255.0),2.2);
+        origG = Math.pow((origPixel.getGreen()/255.0),2.2);
+        origB = Math.pow((origPixel.getBlue()/255.0),2.2);
+
         //this downscaling for protonopes
-        origR = (int)(0.992052*origPixel.getRed()+0.003974);
-        origG = (int)(0.992052*origPixel.getGreen()+0.003974);
-        origB = (int)(0.992052*origPixel.getBlue()+0.003974);
+        origR = (0.992052*origR+0.003974);
+        origG = (0.992052*origG+0.003974);
+        origB = (0.992052*origB+0.003974);
 
         /** this downscaling for deuteranopes
         origR = 0.957237*origPixel.getRed()+0.0213814;
@@ -104,43 +117,49 @@ public class ProtPixel extends Pixel{
     
 
     private void lmsProtToRGBProt(){
-        protR = ((int)(protLMST[0]*toRGBProt[0][0] + 
-            protLMST[1]*toRGBProt[0][1] + protLMST[2]*toRGBProt[0][2]));
-        protG = ((int)(protLMST[0]*toRGBProt[1][0] + 
-            protLMST[1]*toRGBProt[1][1] + protLMST[2]*toRGBProt[1][2]));
-        protB = ((int)(protLMST[0]*toRGBProt[2][0] + 
-            protLMST[1]*toRGBProt[2][1] + protLMST[2]*toRGBProt[2][2]));
+        protR = (protLMST[0]*toRGBProt[0][0] + 
+            protLMST[1]*toRGBProt[0][1] + protLMST[2]*toRGBProt[0][2]);
+        protG = (protLMST[0]*toRGBProt[1][0] + 
+            protLMST[1]*toRGBProt[1][1] + protLMST[2]*toRGBProt[1][2]);
+        protB = (protLMST[0]*toRGBProt[2][0] + 
+            protLMST[1]*toRGBProt[2][1] + protLMST[2]*toRGBProt[2][2]);
+
+        protR = 255*Math.pow(protR, 1.0/2.2);
+        protG = 255*Math.pow(protG, 1.0/2.2);
+        protB = 255*Math.pow(protB, 1.0/2.2);
+
     }
 
     @Override
     public int getRed(){
-        return protR;
+        return (int)protR;
     }
 
     @Override
     public int getGreen(){
-        return protG;
+        return (int)protG;
     }
 
     @Override
     public int getBlue(){
-        return protB;
+        return (int)protB;
     }
 
+
     public int getOrigRed(){
-        return origR;
+        return origColor.getRed();
     }
 
     public int getOrigGreen(){
-        return origG;
+        return origColor.getGreen();
     }
 
     public int getOrigBlue(){
-        return origB;
+        return origColor.getBlue();
     }
 
     public Color getOrigColor(){
-        return new Color(origR, origG, origB);
+        return origColor;
     }
 
 }
