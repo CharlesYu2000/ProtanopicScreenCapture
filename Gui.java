@@ -94,14 +94,21 @@ class KeyHandler implements EventHandler<KeyEvent> {
                 Picture pic = new Picture(fileSaveLoc);
 
                 
-                for (int j = 0; j < width; j++) {
-                    for (int k = 0; k < height; k++) {
+                for (int j = 0; j < 2/*width*/; j++) {
+                    for (int k = 0; k < 2/*height*/; k++) {
                         pix = new Pixel(pic, j, k);
+
+            System.out.println(pix);
                         newPix = new ProtPixel(pix);
-                        pix.setColor(newPix.getColor());
+                        newPix.setColor(newPix.getColor());
+            System.out.println(newPix);
                         
                     }
                 }
+
+
+
+                imgFile = new File(fileSaveLoc);
                 ImageIO.write(curr, "png", imgFile);
 
             } catch (Exception exc) {
