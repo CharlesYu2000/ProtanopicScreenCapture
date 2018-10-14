@@ -4,9 +4,9 @@ public class Pixel{
 
     protected Picture pic;
 
-    private int x;
+    protected int x;
 
-    private int y;
+    protected int y;
 
     public Pixel(Picture pic, int x, int y){
         this.pic = pic;

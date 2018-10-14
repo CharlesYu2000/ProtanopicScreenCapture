@@ -57,36 +57,52 @@ class KeyHandler implements EventHandler<KeyEvent> {
     @Override
     public void handle(KeyEvent e) {
 
-        if (e.getCode().equals(KeyCode.PRINTSCREEN)) {
-            System.out.println("PRINTSCREEN pressed! Taking screenshot here.");
+        if (e.getCode().equals(KeyCode.F6)) {
+            System.out.println("F6 pressed! Taking screenshot here.");
             stage.setIconified(true);
-
+            long startTime = System.currentTimeMillis();
             try {
+                File myScs = new File("MyScreenshots");
+                if(!(myScs.exists())){
+                    myScs.mkdir();
+                }
+
+
                 Robot capture = new Robot();
                 BufferedImage curr;
                 Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                 int width = (int) screenSize.getWidth();
                 int height = (int) screenSize.getHeight();
                 java.awt.Rectangle screenRect = new java.awt.Rectangle(width, height);
-                curr = capture.createScreenCapture(screenRect);
                 int rgb;
                 Pixel pix;
+                ProtPixel newPix;
                 String date = java.time.LocalDate.now().toString();
                 String time = java.time.LocalTime.now().toString();
-                File myScs = new File("MyScreenshots");
-                if(!(myScs.exists())){
-                    myScs.mkdir();
-                }
-                String fileSaveLoc = saveLocation + date + time.substring(0, 8).replace(':','_')+".jpg";
+                
+                String fileSaveLoc = saveLocation + date + "_" + time.substring(0, 8).replace(':','-')+".png";
                 File imgFile = new File(fileSaveLoc);
-                ImageIO.write(curr, "jpg", imgFile);
+
+
+                while(System.currentTimeMillis() - startTime < 200){}
+
+
+                curr = capture.createScreenCapture(screenRect);
+
+                ImageIO.write(curr, "png", imgFile);
+
+                Picture pic = new Picture(fileSaveLoc);
+
                 
                 for (int j = 0; j < width; j++) {
                     for (int k = 0; k < height; k++) {
-                        rgb = curr.getRGB(j, k);
+                        pix = new Pixel(pic, j, k);
+                        newPix = new ProtPixel(pix);
+                        pix.setColor(newPix.getColor());
                         
                     }
                 }
+                ImageIO.write(curr, "png", imgFile);
 
             } catch (Exception exc) {
                 System.out.println("Exception caught ruh roh");

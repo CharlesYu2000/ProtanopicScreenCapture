@@ -1,4 +1,4 @@
-
+import java.awt.Color;
 /**
  * RGB to LMS, LMS to LMS_prot, LMS_prot to RGB_prot
  */
@@ -60,15 +60,16 @@ public class ProtPixel extends Pixel{
         {0.0809, -0.1305, 0.1167},
         {-0.0102, 0.0540, -0.1136},
         {-0.0003, -0.0041, 0.6935}
-    }
+    };
 
     public ProtPixel(Pixel origPixel){
+        super(origPixel.pic, origPixel.x, origPixel.y);
         //downscale these a bit so that changed vals still within bounds for better accuracy
 
         //this downscaling for protonopes
-        origR = 0.992052*origPixel.getRed()+0.003974;
-        origG = 0.992052*origPixel.getGreen()+0.003974;
-        origB = 0.992052*origPixel.getBlue()+0.003974;
+        origR = (int)(0.992052*origPixel.getRed()+0.003974);
+        origG = (int)(0.992052*origPixel.getGreen()+0.003974);
+        origB = (int)(0.992052*origPixel.getBlue()+0.003974);
 
         /** this downscaling for deuteranopes
         origR = 0.957237*origPixel.getRed()+0.0213814;
