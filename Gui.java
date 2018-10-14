@@ -12,6 +12,7 @@ import javafx.geometry.*;
 import java.util.*;
 
 import javax.imageio.ImageIO;
+import javafx.scene.image.*;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -103,13 +104,21 @@ class KeyHandler implements EventHandler<KeyEvent> {
                     }
                 }
                 ImageIO.write(curr, "png", imgFile);
+                javafx.scene.image.Image newImage =  new javafx.scene.image.Image(fileSaveLoc);
+                ImageView updatedView = new ImageView(newImage);
+                updatedView.setFitWidth(screenSize.getWidth());
+                updatedView.setFitHeight(screenSize.getHeight());
 
+                pane.add(updatedView, 0, 0);
+                pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
+               
             } catch (Exception exc) {
                 System.out.println("Exception caught ruh roh");
                 System.out.println(exc);
                 System.exit(-1);
             }
             stage.setIconified(false);
+            stage.sizeToScene();
 
             
 
