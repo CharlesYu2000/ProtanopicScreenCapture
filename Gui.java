@@ -48,7 +48,7 @@ public class Gui extends Application {
 
     public javafx.scene.control.Label label;
 
-    public String saveLocation = "./MyScreenshots/";
+    public String saveLocation = null;
 
     private boolean screenshotTaken = false;
 
@@ -60,7 +60,10 @@ public class Gui extends Application {
         pane.setMinSize(400, 400);
         label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit"+
             "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
-            + "mode."+"\n Press \"N\" for non-colorblind mode.");
+            + "mode."+"\n Press \"N\" for non-colorblind mode."
+            + " \n"
+            + " \n Screenshots are saved to \"MyScreenshots\" in"
+            + " \n this folder (YYYY-MM-DD_Hr-Min-Sec-Mode)");
         label.setStyle( "-fx-font: 24 helvetica;");
         pane.add(label, 1, 1);
 
@@ -129,9 +132,9 @@ public class Gui extends Application {
                     }
 
                     // The file name of the saved screenshot
-                    String fileSaveLoc = saveLocation + date + "_" +
-                    time.substring(0, 8).replace(':', '-') + mode +".png";
-                    File imgFile = new File(fileSaveLoc);
+                    saveLocation = "./MyScreenshots/" + date + "_" +
+                        time.substring(0, 8).replace(':', '-') + mode +".png";
+                    File imgFile = new File(saveLocation);
 
                     while (System.currentTimeMillis() - startTime < 350) {}
 
@@ -139,7 +142,7 @@ public class Gui extends Application {
 
                     ImageIO.write(curr, "png", imgFile);
 
-                    Picture pic = new Picture(fileSaveLoc);
+                    Picture pic = new Picture(saveLocation);
 
                     for (int j = 0; j < width; j++) {
                         for (int k = 0; k < height; k++) {
@@ -154,7 +157,7 @@ public class Gui extends Application {
                     pic.reSavePic();
                     screenshotTaken = true;
                     screenshotVis = true;
-                    javafx.scene.image.Image newImage = new javafx.scene.image.Image(fileSaveLoc);
+                    javafx.scene.image.Image newImage = new javafx.scene.image.Image(saveLocation);
                     ImageView updatedView = new ImageView(newImage);
                     updatedView.setFitWidth(screenSize.getWidth());
                     updatedView.setFitHeight(screenSize.getHeight());
@@ -208,7 +211,7 @@ public class Gui extends Application {
                     if(screenshotVis){
 
                     }else{
-                        
+
                     }
 
                 }
