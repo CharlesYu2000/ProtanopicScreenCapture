@@ -4,12 +4,12 @@
  * Received.
  * https://github.com/CharlesYu2000/ProtanopicScreenCapture
  *
- * ColorCorrector is free software: you can redistribute it and/or modify
+ * ProtanopicScreenCapture is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * ColorCorrector is distributed in the hope that it will be useful,
+ * ProtanopicScreenCapture is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -32,7 +32,7 @@ public class ProtPixel extends Pixel{
 
     //CHANGE THIS TO "private static boolean protanopia = false;" without the
     // quotes if you want this for deuteranopia
-    private static boolean protanopia = true;  
+    public static boolean protanopia = true;  
 
 
 
@@ -120,9 +120,9 @@ public class ProtPixel extends Pixel{
             origB = (0.992052*origB+0.003974);           
         }else{
             //this downscaling for deuteranopes
-            origR = 0.957237*origPixel.getRed()+0.0213814;
-            origG = 0.957237*origPixel.getGreen()+0.0213814;
-            origB = 0.957237*origPixel.getBlue()+0.0213814;            
+            origR = 0.957237*origR+0.0213814;
+            origG = 0.957237*origG+0.0213814;
+            origB = 0.957237*origB+0.0213814;            
         }
 
         //does stuff HAHA

@@ -4,12 +4,12 @@
  * Received.
  * https://github.com/CharlesYu2000/ProtanopicScreenCapture
  *
- * ColorCorrector is free software: you can redistribute it and/or modify
+ * ProtanopicScreenCapture is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published
  * by the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
  *
- * ColorCorrector is distributed in the hope that it will be useful,
+ * ProtanopicScreenCapture is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
@@ -54,7 +54,9 @@ public class Gui extends Application {
     public void start(Stage primaryStage) {
         pane = new GridPane();
         pane.setMinSize(400, 400);
-        label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit");
+        label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit"+
+            "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
+            + "mode.");
         label.setStyle( "-fx-font: 24 helvetica;");
         pane.add(label, 1, 1);
 
@@ -114,8 +116,17 @@ public class Gui extends Application {
                     String date = java.time.LocalDate.now().toString();
                     String time = java.time.LocalTime.now().toString();
 
+                    String mode = ""; //D mode vs P mode vs S mode
+
+                    if(ProtPixel.protanopia){
+                        mode = "P";
+                    }else{
+                        mode = "D";
+                    }
+
                     // The file name of the saved screenshot
-                    String fileSaveLoc = saveLocation + date + "_" + time.substring(0, 8).replace(':', '-') + ".png";
+                    String fileSaveLoc = saveLocation + date + "_" +
+                    time.substring(0, 8).replace(':', '-') + mode +".png";
                     File imgFile = new File(fileSaveLoc);
 
                     while (System.currentTimeMillis() - startTime < 350) {
@@ -158,6 +169,25 @@ public class Gui extends Application {
             } else if (e.getCode().equals(KeyCode.Q)) {
                 System.out.println("Q pressed! closing.");
                 System.exit(0);
+            } else if (e.getCode().equals(KeyCode.P)) {
+                if(ProtPixel.protanopia){
+                    System.out.println("P pressed! Already in Protanopia " +
+                       "mode!");
+                }else{
+                    System.out.println("P pressed! Changing to Protanopia mode!");  
+                    ProtPixel.protanopia = true;                 
+                }
+
+            } else if (e.getCode().equals(KeyCode.D)) {
+                if(!ProtPixel.protanopia){
+                    System.out.println("D pressed! Already in Deuteranopia " +
+                       "mode!");
+                }else{
+                    System.out.println("D pressed! Changing to Deuteranopia "+
+                       "mode!");
+                    ProtPixel.protanopia = false;                 
+                }
+
             }
 
         }
