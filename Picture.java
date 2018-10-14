@@ -35,8 +35,6 @@ public class Picture {
 
     private BufferedImage bufferedImage;
 
-    private Frame frame;
-
     private String extension = "png";
 
 
@@ -67,8 +65,8 @@ public class Picture {
         bufferedImage.setRGB(x, y, rgb);
     }
 
-    /** writes the modified buffered image to a file in MyScreenshots
-     *  
+    /** 
+     *  writes the modified buffered image to a file in MyScreenshots
      */
     public void reSavePic(){
         try{
@@ -113,25 +111,6 @@ public class Picture {
         File file = new File(this.fileName);
 
         bufferedImage = ImageIO.read(file);
-    }
-
-    //JavaFX used instead
-    public void redraw(){
-        if (frame != null){
-            frame.redraw();
-        } else {
-            frame = new Frame(this);
-        }
-
-    }
-
-    //JavaFX used instead
-    public void show(){
-        if (frame != null){
-            frame.show();
-        } else {
-            frame = new Frame(this);
-        }
     }
 
     /** getter for the buffered image object

@@ -245,13 +245,13 @@ public class Gui extends Application {
                 if(screenshotTaken){
                     pane.getChildren().remove(updatedView);
                     if(screenshotVis){
+                        listInd++;
                         newImage = new javafx.scene.image.Image(listOfSCs.get
                             (listInd));
                         updatedView = new ImageView(newImage);
                         pane.add(updatedView, 0, 0);
                         pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
                         stage.sizeToScene();
-                        listInd++;
                         if(listInd==listOfSCs.size()){
                             listInd = 0;
                         }
@@ -263,13 +263,13 @@ public class Gui extends Application {
                 if(screenshotTaken){
                     pane.getChildren().remove(updatedView);
                     if(screenshotVis){
+                        listInd--;
                         newImage = new javafx.scene.image.Image(listOfSCs.get
                             (listInd));
                         updatedView = new ImageView(newImage);
                         pane.add(updatedView, 0, 0);
                         pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
                         stage.sizeToScene();
-                        listInd--;
                         if(listInd==-1){
                             listInd = listOfSCs.size()-1;
                         }
