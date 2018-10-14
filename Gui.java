@@ -26,7 +26,7 @@ public class Gui extends Application {
 
     public GridPane pane;
 
-    public String saveLocation = "./MyScreenshots";
+    public String saveLocation = "./MyScreenshots/";
 
     @Override
     public void start(Stage primaryStage) {
@@ -71,8 +71,10 @@ class KeyHandler implements EventHandler<KeyEvent> {
                 curr = capture.createScreenCapture(screenRect);
                 int rgb;
                 Pixel pix;
-                java.util.Date date = new java.util.Date();
-                File imgFile = new File(saveLocation+ "/ColorCorrector/" + date+".jpg");
+                String date = java.time.LocalDate.now().toString();
+                String time = java.time.LocalTime.now().toString();
+                String fileSaveLoc = saveLocation + date + time.substring(0, 8).replace(':','_')+".jpg";
+                File imgFile = new File(fileSaveLoc);
                 ImageIO.write(curr, "jpg", imgFile);
                 
                 for (int j = 0; j < width; j++) {
