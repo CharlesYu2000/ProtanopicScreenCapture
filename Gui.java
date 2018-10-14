@@ -70,7 +70,7 @@ public class Gui extends Application {
                 + "mode."+"\n Press \"N\" for non-colorblind mode."
                 + " \n After taking a screenshot, you can press 'space'"
                 + " \n  to come back to this screen/go back to the picture."
-                + " \n"
+                + " \n 'Up'/'Down' to scroll through current screenshots"
                 + " \n"
                 + " \n Screenshots are saved to \"MyScreenshots\" in"
                 + " \n this folder (YYYY-MM-DD_Hr-Min-Sec-Mode)");
