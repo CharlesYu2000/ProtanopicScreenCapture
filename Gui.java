@@ -50,6 +50,10 @@ public class Gui extends Application {
 
     public String saveLocation = "./MyScreenshots/";
 
+    private boolean screenshotTaken = false;
+
+    private boolean screenshotVis = true;
+
     @Override
     public void start(Stage primaryStage) {
         pane = new GridPane();
@@ -129,8 +133,7 @@ public class Gui extends Application {
                     time.substring(0, 8).replace(':', '-') + mode +".png";
                     File imgFile = new File(fileSaveLoc);
 
-                    while (System.currentTimeMillis() - startTime < 350) {
-                    }
+                    while (System.currentTimeMillis() - startTime < 350) {}
 
                     curr = capture.createScreenCapture(screenRect);
 
@@ -149,6 +152,8 @@ public class Gui extends Application {
                     }
 
                     pic.reSavePic();
+                    screenshotTaken = true;
+                    screenshotVis = true;
                     javafx.scene.image.Image newImage = new javafx.scene.image.Image(fileSaveLoc);
                     ImageView updatedView = new ImageView(newImage);
                     updatedView.setFitWidth(screenSize.getWidth());
@@ -198,6 +203,15 @@ public class Gui extends Application {
                     ProtPixel.protanopia = -1;                 
                 }
 
+            } else if (e.getCode().equals(KeyCode.SPACE)){
+                if(screenshotTaken){
+                    if(screenshotVis){
+
+                    }else{
+                        
+                    }
+
+                }
             }
 
         }
