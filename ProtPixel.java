@@ -29,10 +29,8 @@ import java.lang.Math;
  */
 public class ProtPixel extends Pixel{
 
-
-    //CHANGE THIS TO "private static boolean protanopia = false;" without the
-    // quotes if you want this for deuteranopia
-    public static boolean protanopia = true;  
+    //0 = protanopia, 1 = deuteranopia, -1 = normal
+    public static short protanopia = 0;  
 
 
 
@@ -107,13 +105,21 @@ public class ProtPixel extends Pixel{
         origColor = new 
             Color(origPixel.getRed(), origPixel.getGreen(), origPixel.getBlue());
 
+        //normal mode
+        if(protanopia == -1){
+            origR = protR = origPixel.getRed();
+            origG = protG = origPixel.getGreen();
+            origB = protB = origPixel.getBlue();
+            return;
+        }
+
         //downscale these a bit so that changed values 
         //still within bounds for better accuracy
         origR = Math.pow((origPixel.getRed()/255.0),2.2);
         origG = Math.pow((origPixel.getGreen()/255.0),2.2);
         origB = Math.pow((origPixel.getBlue()/255.0),2.2);
 
-        if(protanopia){
+        if(protanopia==0){
             //this downscaling for protonopes
             origR = (0.992052*origR+0.003974);
             origG = (0.992052*origG+0.003974);

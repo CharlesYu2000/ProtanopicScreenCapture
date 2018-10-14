@@ -56,7 +56,7 @@ public class Gui extends Application {
         pane.setMinSize(400, 400);
         label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit"+
             "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
-            + "mode.");
+            + "mode."+"\n Press \"N\" for non-colorblind mode.");
         label.setStyle( "-fx-font: 24 helvetica;");
         pane.add(label, 1, 1);
 
@@ -118,9 +118,9 @@ public class Gui extends Application {
 
                     String mode = ""; //D mode vs P mode vs S mode
 
-                    if(ProtPixel.protanopia){
+                    if(ProtPixel.protanopia==0){
                         mode = "P";
-                    }else{
+                    }else if(ProtPixel.protanopia==1){
                         mode = "D";
                     }
 
@@ -167,25 +167,35 @@ public class Gui extends Application {
                 stage.sizeToScene();
 
             } else if (e.getCode().equals(KeyCode.Q)) {
-                System.out.println("Q pressed! closing.");
+                System.out.println("Q pressed! Closing. Bye <3");
                 System.exit(0);
             } else if (e.getCode().equals(KeyCode.P)) {
-                if(ProtPixel.protanopia){
+                if(ProtPixel.protanopia==0){
                     System.out.println("P pressed! Already in Protanopia " +
                        "mode!");
                 }else{
                     System.out.println("P pressed! Changing to Protanopia mode!");  
-                    ProtPixel.protanopia = true;                 
+                    ProtPixel.protanopia = 0;                 
                 }
 
             } else if (e.getCode().equals(KeyCode.D)) {
-                if(!ProtPixel.protanopia){
+                if(ProtPixel.protanopia==1){
                     System.out.println("D pressed! Already in Deuteranopia " +
                        "mode!");
                 }else{
                     System.out.println("D pressed! Changing to Deuteranopia "+
                        "mode!");
-                    ProtPixel.protanopia = false;                 
+                    ProtPixel.protanopia = 1;                 
+                }
+
+            } else if (e.getCode().equals(KeyCode.N)) {
+                if(ProtPixel.protanopia==-1){
+                    System.out.println("N pressed! Already in non-colorblind " +
+                       "mode!");
+                }else{
+                    System.out.println("N pressed! Changing to non-colorblind "+
+                       "mode!");
+                    ProtPixel.protanopia = -1;                 
                 }
 
             }
