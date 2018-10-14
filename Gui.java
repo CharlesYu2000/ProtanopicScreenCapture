@@ -61,14 +61,14 @@ public class Gui extends Application {
 
         //when adding to this label, add only to the strings with only \n
         label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit"+
-            "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
-            + "mode."+"\n Press \"N\" for non-colorblind mode."
-            + " \n After taking a screenshot, you can press 'space'"
-            + " \n  to come back to this screen/go back to the picture."
-            + " \n"
-            + " \n"
-            + " \n Screenshots are saved to \"MyScreenshots\" in"
-            + " \n this folder (YYYY-MM-DD_Hr-Min-Sec-Mode)");
+                "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
+                + "mode."+"\n Press \"N\" for non-colorblind mode."
+                + " \n After taking a screenshot, you can press 'space'"
+                + " \n  to come back to this screen/go back to the picture."
+                + " \n"
+                + " \n"
+                + " \n Screenshots are saved to \"MyScreenshots\" in"
+                + " \n this folder (YYYY-MM-DD_Hr-Min-Sec-Mode)");
         label.setStyle( "-fx-font: 24 helvetica;");
         pane.add(label, 1, 1);
 
@@ -87,6 +87,10 @@ public class Gui extends Application {
      * EventHandler that listens to keys pressed. Used by scene.setOnKeyPressed
      */
     class KeyHandler implements EventHandler<KeyEvent> {
+
+        Dimension screenSize;
+
+        ImageView updatedView;
 
         /**
          * Takes a screenshot if "F6" is pressed. Exits the program if "Q" is pressed.
@@ -119,7 +123,7 @@ public class Gui extends Application {
                     ProtPixel newPix;
 
                     // Gets the width and height of the screen
-                    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                    screenSize = Toolkit.getDefaultToolkit().getScreenSize();
                     int width = (int) screenSize.getWidth();
                     int height = (int) screenSize.getHeight();
                     Rectangle screenRect = new Rectangle(width, height);
@@ -160,10 +164,13 @@ public class Gui extends Application {
                     }
 
                     pic.reSavePic();
+                    if(screenshotTaken) {
+                        pane.getChildren().remove(updatedView);
+                    }
                     screenshotTaken = true;
                     screenshotVis = true;
                     javafx.scene.image.Image newImage = new javafx.scene.image.Image(saveLocation);
-                    ImageView updatedView = new ImageView(newImage);
+                    updatedView = new ImageView(newImage);
                     updatedView.setFitWidth(screenSize.getWidth());
                     updatedView.setFitHeight(screenSize.getHeight());
 
@@ -185,7 +192,7 @@ public class Gui extends Application {
             } else if (e.getCode().equals(KeyCode.P)) {
                 if(ProtPixel.protanopia==0){
                     System.out.println("P pressed! Already in Protanopia " +
-                       "mode!");
+                            "mode!");
                 }else{
                     System.out.println("P pressed! Changing to Protanopia mode!");  
                     ProtPixel.protanopia = 0;                 
@@ -194,29 +201,31 @@ public class Gui extends Application {
             } else if (e.getCode().equals(KeyCode.D)) {
                 if(ProtPixel.protanopia==1){
                     System.out.println("D pressed! Already in Deuteranopia " +
-                       "mode!");
+                            "mode!");
                 }else{
                     System.out.println("D pressed! Changing to Deuteranopia "+
-                       "mode!");
+                            "mode!");
                     ProtPixel.protanopia = 1;                 
                 }
 
             } else if (e.getCode().equals(KeyCode.N)) {
                 if(ProtPixel.protanopia==-1){
                     System.out.println("N pressed! Already in non-colorblind " +
-                       "mode!");
+                            "mode!");
                 }else{
                     System.out.println("N pressed! Changing to non-colorblind "+
-                       "mode!");
+                            "mode!");
                     ProtPixel.protanopia = -1;                 
                 }
 
             } else if (e.getCode().equals(KeyCode.SPACE)){
                 if(screenshotTaken){
                     if(screenshotVis){
-//make screenshot invis, go back to instructions screen
+                        pane.getChildren().remove(updatedView);
                     }else{
-//load screenshot from "saveLocation" variable
+                        pane.add(updatedView, 0, 0);
+                        pane.setPrefSize(screenSize.getWidth(), screenSize.getHeight());
+                        stage.sizeToScene();
                     }
                     screenshotVis = !screenshotVis;
 
