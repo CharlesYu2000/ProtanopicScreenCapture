@@ -1,19 +1,19 @@
 import java.awt.Color;
 import java.lang.Math;
+
+
 /**
- * RGB to LMS, LMS to LMS_prot, LMS_prot to RGB_prot
+ * RGB to LMS, LMS to LMS_prot, LMS_prot to RGB_prot. Changes a Pixel to a pixel
+ * that is easy for a person with protonopia to see.
+ *
+ * @author Charles Yu, charlesyu@ucsd.edu
  */
-
-
-
-
-
 public class ProtPixel extends Pixel{
-    private double origR;
-    private double origG;
-    private double origB;
+    private double origR; //the original red value of the pixel
+    private double origG; //the original green value of the pixel
+    private double origB; //the original blue value of the pixel
 
-    private Color origColor;
+    private Color origColor; //the original color of the pixel
 
     //LMS transpose
     private double[] origLMST = new double[2];
@@ -21,9 +21,9 @@ public class ProtPixel extends Pixel{
     //LMS_prot transpose
     private double[] protLMST = new double[3];
 
-    private double protR;
-    private double protG;
-    private double protB;
+    private double protR; //the new red value
+    private double protG; //the new green value
+    private double protB; //the new blue value
 
 
     /**
@@ -69,12 +69,17 @@ public class ProtPixel extends Pixel{
         {-0.0003, -0.0041, 0.6935}
     };
 
+    /**
+     * This constructor does all the converting and stuffs. :)
+     * 
+     * @param origPixel     - the Pixel to be changed
+     */
     public ProtPixel(Pixel origPixel){
-        super(origPixel.pic, origPixel.x, origPixel.y);
-        //downscale these a bit so that changed vals still within bounds for better accuracy
-
+        super(origPixel.pic, origPixel.x, origPixel.y); //cus polymorphism X)
+        
         origColor = new Color(origPixel.getRed(), origPixel.getGreen(), origPixel.getBlue());
 
+        //downscale these a bit so that changed vals still within bounds for better accuracy
         origR = Math.pow((origPixel.getRed()/255.0),2.2);
         origG = Math.pow((origPixel.getGreen()/255.0),2.2);
         origB = Math.pow((origPixel.getBlue()/255.0),2.2);
@@ -99,6 +104,9 @@ public class ProtPixel extends Pixel{
         origB = origPixel.getBlue();
     }
 
+    /**
+     * Changes RGB to LMS (long-medium-short wavelength)
+     */
     private void rgbToLMS(){
         /** L is not needed, save memory
         origLMST[0] = origR*toLMS[0][0]+origG*toLMS[0][1]+origB*toLMS[0][2];//Long wavelength is 564-580 nm
@@ -109,13 +117,18 @@ public class ProtPixel extends Pixel{
         origLMST[1] = origR*toLMS[1][0]+origG*toLMS[1][1]+origB*toLMS[1][2];//short wavelength is 420-440 nm
     } 
 
+    /**
+     * Converts LMS to protan LMS values
+     */
     private void lmsToLMSProt(){
         protLMST[0] = origLMST[0]*toLMSProt[0]+origLMST[1]*toLMSProt[1];
         protLMST[1] = origLMST[0];
         protLMST[2] = origLMST[1];
     }
-    
 
+    /**
+     * Converts protan LMS values to the protan RGB values
+     */
     private void lmsProtToRGBProt(){
         protR = (protLMST[0]*toRGBProt[0][0] + 
             protLMST[1]*toRGBProt[0][1] + protLMST[2]*toRGBProt[0][2]);
@@ -130,34 +143,68 @@ public class ProtPixel extends Pixel{
 
     }
 
+    /**
+     * Getter for the red channel of the protan pixel
+     * 
+     * @return the red value of the pixel
+     */
     @Override
     public int getRed(){
         return (int)protR;
     }
 
+    /**
+     * Getter for the green channel of the protan pixel
+     * 
+     * @return the green value of the pixel
+     */
     @Override
     public int getGreen(){
         return (int)protG;
     }
 
+    /**
+     * Getter for the blue channel of the protan pixel
+     * 
+     * @return the blue value of the pixel
+     */
     @Override
     public int getBlue(){
         return (int)protB;
     }
 
-
+    /**
+     * Getter for the red channel of the non-protan pixel
+     * 
+     * @return the red value of the non-protan pixel
+     */
     public int getOrigRed(){
         return origColor.getRed();
     }
 
+    /**
+     * Getter for the green channel of the non-protan pixel
+     * 
+     * @return the green value of the non-protan pixel
+     */
     public int getOrigGreen(){
         return origColor.getGreen();
     }
 
+    /**
+     * Getter for the blue channel of the non-protan pixel
+     * 
+     * @return the blue value of the non-protan pixel
+     */
     public int getOrigBlue(){
         return origColor.getBlue();
     }
 
+    /**
+     * Getter for the Color the non-protan pixel
+     * 
+     * @return the Color of the non-protan pixel
+     */
     public Color getOrigColor(){
         return origColor;
     }
