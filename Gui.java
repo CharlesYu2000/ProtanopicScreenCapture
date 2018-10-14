@@ -58,9 +58,14 @@ public class Gui extends Application {
     public void start(Stage primaryStage) {
         pane = new GridPane();
         pane.setMinSize(400, 400);
+
+        //when adding to this label, add only to the strings with only \n
         label = new javafx.scene.control.Label(" Press \"F6\" to take a screenshot. \n Press \"Q\" to quit"+
             "\n Press \"P\" for Protanopia mode. \n Press \"D\" for Deuteranopia "
             + "mode."+"\n Press \"N\" for non-colorblind mode."
+            + " \n"
+            + " \n"
+            + " \n"
             + " \n"
             + " \n Screenshots are saved to \"MyScreenshots\" in"
             + " \n this folder (YYYY-MM-DD_Hr-Min-Sec-Mode)");
@@ -209,10 +214,11 @@ public class Gui extends Application {
             } else if (e.getCode().equals(KeyCode.SPACE)){
                 if(screenshotTaken){
                     if(screenshotVis){
-
+//make screenshot invis, go back to instructions screen
                     }else{
-
+//load screenshot from "saveLocation" variable
                     }
+                    screenshotVis = !screenshotVis;
 
                 }
             }
